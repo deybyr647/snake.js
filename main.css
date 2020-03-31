@@ -1,7 +1,3 @@
-body{
-	margin: 0px;
-}
-
 .header {
 	text-align: center;
 	font-family: 'Roboto', sans-serif;
@@ -75,6 +71,7 @@ body{
 body{
 	background: #FFFCF9;
 	padding:10px;
+	margin: 0px;
 }
 
 /*Everything from this point on helps to make the game/website responsive */
