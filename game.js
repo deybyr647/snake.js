@@ -101,7 +101,6 @@ let drawSnake = () => {
 
 //Event handler for user input. Input changes movement direction of snakes. Uses both arrow keys and WASD
 window.addEventListener('keydown', event => {
-  //console.log(event.code);
 
   if (event.code === 'KeyA' || event.code === 'ArrowLeft') {
     direction = 'left';
@@ -152,6 +151,7 @@ let main = () => {
   head = snake[snake.length - 1];
   if (head.x === apple.x && head.y === apple.y) {
     randApple();
+    score.innerHTML = snake.length - 3;
   } else {
     snake.shift();
   }
@@ -159,9 +159,10 @@ let main = () => {
   //Checks if the snake goes out of bounds. If yes, results in a loss & reset of the snake. Also alerts score
   if (head.x >= gridWidth || head.y >= gridHeight || head.y < 0 || head.x < 0) {
     if(true){
-      alert(`You Lose! Your score was ${snake.length - 3} !`);
+      alert(`You went out of bounds! Your score was ${snake.length - 3} !`);
       clearCanvas();
       resetSnake();
+      score.innerHTML = snake.length - 3;
       return true;
     }
   }
@@ -172,9 +173,10 @@ let main = () => {
 
     if (head.x === point.x && head.y === point.y) {
       if(true){
-        alert(`You Lose! Your score was ${snake.length - 3} !`);
+        alert(`You ate yourself! Your score was ${snake.length - 3} !`);
         clearCanvas();
         resetSnake();
+        score.innerHTML = snake.length - 3;
         return true;
       }
     }
@@ -191,7 +193,7 @@ let main = () => {
 
 /*Game Event Listeners (for the buttons) */
 
-//Play Button. Starts game when clicked
+//Play Button. Starts game when clicked by calling main game function
 let play = document.getElementById('playBtn');
 play.addEventListener('click', event => {
   main();
@@ -207,37 +209,59 @@ pause.addEventListener('click', event => {
 
 /*Color Button. Changes color by using c index in the specified arrays. Referenced above in the drawing functions
 If c == 3 (if button is clicked when snake is blue), then the c index becomes zero, changing snake and colors
-back to default values (green snake, red apple)*/
+back to default values (green snake, red apple). Current snake color is seen in the color of the icon and as a 
+tooltip when hovering over the button.*/
 let color = document.getElementById('colorBtn');
 
 let darkColors = ['darkgreen', 'darkred', 'darkblue'];
 let colors = ['green', 'red', 'blue'];
 let appleColors = ['red', 'green', 'yellow'];
-let colorWords = ['Green', 'Red', 'Blue']
+let colorWords = ['Green', 'Red', 'Blue'];
 let c = 0;
 //The next 2 lines help to change the color icon's color to show which color is currently selected
-let colorIcon = document.getElementById('rgbIco')
-colorIcon.style.color = colors[c]
+let colorIcon = document.getElementById('rgbIco');
+colorIcon.style.color = colors[c];
+
+//This changes the tooltip text based on the c index (colors[c])
+color.title = `Color: ${colors[c]}`;
 
 color.addEventListener('click', event => {
   c++;
   colorIcon.style.color = colors[c];
+  color.title = `Color: ${colors[c]}`;
   clearCanvas();
   if(c == 3){
     c = 0;
     colorIcon.style.color = colors[c]
+    color.title = `Color: ${colors[c]}`;
     clearCanvas();
   }
 });
 
-/*Speed Button. Changes speed of the game/snake when clicked */
+/*Speed Button. Changes speed of the game/snake when clicked. Speed is changed by manipulating the second
+parameter of the setTimeout() method used within the game's main function. Since the parameter is an ms value
+or an integer, the below code helps to iterate through an array of ms values as the button is pressed. Speed can
+be changed before or during gameplay, and current speed is shown as a tooltip when hovering over the button
+TL;DR: Speed button uses same logic as the color button to change values*/
 let speed = document.getElementById('speedBtn');
 let speeds = [100, 75, 50];
+let speedNames = ['Speed: slow', 'Speed: medium', 'Speed: fast']
 let s = 0;
+speed.title = speedNames[s]
 
 speed.addEventListener('click', event => {
   s++;
+  speed.title = speedNames[s];
   if(s == 3){
     s = 0;
+    speed.title = speedNames[s];
   }
 });
+
+/*Scoring related code. This variable and DOM manipulation is used above, for when the snake eats an apple, goes out
+of bounds or eats itself. The score changes as the length of the snake array changes. Of course, the (-3) is there 
+to take away the 3 starting blocks that make up the snake from the score, so that the user doesn't start with a
+score of 3 and instead 0.*/
+let score = document.getElementById('score');
+score.innerHTML = snake.length - 3;
+
