@@ -15,7 +15,7 @@ canvas.height = parseInt(h, 10);
 let ctx = canvas.getContext('2d');
 
 //Helps in creation of a grid over the canvas to ease postioning of snake elements
-let gridSize = 20;
+let gridSize = 25;
 let gridWidth = Math.floor(canvas.width / gridSize);
 let gridHeight = Math.floor(canvas.height / gridSize);
 
@@ -70,19 +70,19 @@ let clearCanvas = () => {
 
 let drawSnakeBody = (x, y) => {
   //Draws/Creates squares that become part of the snake's body
-  ctx.fillStyle = 'green';
+  ctx.fillStyle = colors[c];
   ctx.fillRect(x * gridSize, y * gridSize, gridSize, gridSize);
 }
 
 let drawSnakeHead = (x, y) => {
   //Draws/Creates the head of the snake
-  ctx.fillStyle = 'darkgreen';
+  ctx.fillStyle = darkColors[c];
   ctx.fillRect(x * gridSize, y * gridSize, gridSize, gridSize);
 }
 
 let drawApple = (x, y) => {
   //Creates the apple on the canvas using Math.PI 
-  ctx.fillStyle = 'red';
+  ctx.fillStyle = appleColors[c];
   ctx.beginPath();
   ctx.arc((x + 0.5) * gridSize, (y + 0.5) * gridSize, gridSize / 2, 0, 2 * Math.PI);
   ctx.fill();
@@ -124,8 +124,7 @@ let main = () => {
   /*This is the game's main function. Here it takes care of snake movement by constantly changing values
   in the objects within the snake array. So the program is essentially always drawing the same snake.
   Just in different locations/coordinates*/
-
-  let head = snake[snake.length - 1];
+  var head = snake[snake.length - 1];
 
   /*Changes direction of snake based on input from the event handler and the direction variable.
   Movement is possible by the increase/decrease by 1 of the values within the objects within the snake array*/
@@ -157,9 +156,14 @@ let main = () => {
     snake.shift();
   }
 
-  //Checks if the snake goes out of bounds. If yes, results in a loss & reset of the snake
+  //Checks if the snake goes out of bounds. If yes, results in a loss & reset of the snake. Also alerts score
   if (head.x >= gridWidth || head.y >= gridHeight || head.y < 0 || head.x < 0) {
-    resetSnake();
+    if(true){
+      alert(`You Lose! Your score was ${snake.length - 3} !`);
+      clearCanvas();
+      resetSnake();
+      return true;
+    }
   }
 
   //Checks if the snake is hitting itself. If yes, results in a loss & reset of the snake
@@ -167,7 +171,12 @@ let main = () => {
     let point = snake[i];
 
     if (head.x === point.x && head.y === point.y) {
-      resetSnake();
+      if(true){
+        alert(`You Lose! Your score was ${snake.length - 3} !`);
+        clearCanvas();
+        resetSnake();
+        return true;
+      }
     }
   }
 
@@ -177,8 +186,58 @@ let main = () => {
   drawApple(apple.x, apple.y);
 
   //Sets up the game to run constantly, until a loss. Changing the ms value also changes snakes speed.
-  setTimeout(() => main(), 75);
+  setTimeout(() => main(), speeds[s]);
 }
 
-//Test
-//main();
+/*Game Event Listeners (for the buttons) */
+
+//Play Button. Starts game when clicked
+let play = document.getElementById('playBtn');
+play.addEventListener('click', event => {
+  main();
+});
+
+//Pause Button. Pauses game by calling an alert.
+let pause = document.getElementById('pauseBtn');
+pause.addEventListener('click', event => {
+  if(event.button === 0 || event.button === 1){
+    alert('Game is paused. Click OK to resume !');
+  }
+});
+
+/*Color Button. Changes color by using c index in the specified arrays. Referenced above in the drawing functions
+If c == 3 (if button is clicked when snake is blue), then the c index becomes zero, changing snake and colors
+back to default values (green snake, red apple)*/
+let color = document.getElementById('colorBtn');
+
+let darkColors = ['darkgreen', 'darkred', 'darkblue'];
+let colors = ['green', 'red', 'blue'];
+let appleColors = ['red', 'green', 'yellow'];
+let colorWords = ['Green', 'Red', 'Blue']
+let c = 0;
+//The next 2 lines help to change the color icon's color to show which color is currently selected
+let colorIcon = document.getElementById('rgbIco')
+colorIcon.style.color = colors[c]
+
+color.addEventListener('click', event => {
+  c++;
+  colorIcon.style.color = colors[c];
+  clearCanvas();
+  if(c == 3){
+    c = 0;
+    colorIcon.style.color = colors[c]
+    clearCanvas();
+  }
+});
+
+/*Speed Button. Changes speed of the game/snake when clicked */
+let speed = document.getElementById('speedBtn');
+let speeds = [100, 75, 50];
+let s = 0;
+
+speed.addEventListener('click', event => {
+  s++;
+  if(s == 3){
+    s = 0;
+  }
+});

@@ -5,7 +5,6 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:500i&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Baloo+2:600&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="main.css">
 	<script defer src="game.js"> </script>
 	<title> Snake.js </title>
@@ -25,9 +24,8 @@
 </div>
 
 <div class="gameButtons">
-		<button onclick='main()'> <i class="fa fa-play-circle"></i> Play</button>
-		<button> <i class="fa fa-stop"></i> Stop</button>
-		<button title="Click To Change Snake Color"> <i class="fa fa-tint"></i> Color</button>
-		<button title="Click To Change Grid Size"> <i class="fa fa-th-large"></i> Grid</button>
-		<button title="Click To Change Snake Speed"> <i class="fa fa-fast-forward"></i> Speed</button>
+		<button id="playBtn"> <i class="fa fa-play-circle"></i> Play</button>
+		<button id="pauseBtn"> <i class="fa fa-pause-circle"></i> Pause</button>
+		<button id="colorBtn" title="Click To Change Snake Color"> <i id="rgbIco" class="fa fa-tint"></i> Color</button>
+		<button id="speedBtn" title="Click To Change Snake Speed"> <i id="speedIco" class="fa fa-fast-forward"></i> Speed</button>
 </div>
