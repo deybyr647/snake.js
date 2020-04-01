@@ -124,7 +124,7 @@ let main = () => {
   /*This is the game's main function. Here it takes care of snake movement by constantly changing values
   in the objects within the snake array. So the program is essentially always drawing the same snake.
   Just in different locations/coordinates*/
-  var head = snake[snake.length - 1];
+  let head = snake[snake.length - 1];
 
   /*Changes direction of snake based on input from the event handler and the direction variable.
   Movement is possible by the increase/decrease by 1 of the values within the objects within the snake array*/
