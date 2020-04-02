@@ -202,9 +202,7 @@ play.addEventListener('click', event => {
 //Pause Button. Pauses game by calling an alert.
 let pause = document.getElementById('pauseBtn');
 pause.addEventListener('click', event => {
-  if(event.button === 0 || event.button === 1){
     alert('Game is paused. Click OK to resume !');
-  }
 });
 
 /*Color Button. Changes color by using c index in the specified arrays. Referenced above in the drawing functions
@@ -256,6 +254,12 @@ speed.addEventListener('click', event => {
     s = 0;
     speed.title = speedNames[s];
   }
+});
+
+//Refresh Button. Reloads game/page from cache when clicked by user (user clicks if they see graphical abnormalities)
+let refresh = document.getElementById('refreshBtn');
+refresh.addEventListener('click', event => {
+  location.reload(false);
 });
 
 /*Scoring related code. This variable and DOM manipulation is used above, for when the snake eats an apple, goes out
