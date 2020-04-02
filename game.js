@@ -259,7 +259,7 @@ speed.addEventListener('click', event => {
 //Refresh Button. Reloads game/page from cache when clicked by user (user clicks if they see graphical abnormalities)
 let refresh = document.getElementById('refreshBtn');
 refresh.addEventListener('click', event => {
-  location.reload(false);
+  location.reload(true);
 });
 
 /*Scoring related code. This variable and DOM manipulation is used above, for when the snake eats an apple, goes out
