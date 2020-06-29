@@ -269,3 +269,4 @@ score of 3 and instead 0.*/
 let score = document.getElementById('score');
 score.innerHTML = snake.length - 3;
 
+/* Test Edit */
