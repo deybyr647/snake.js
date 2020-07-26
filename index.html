@@ -14,14 +14,15 @@
 
 <div class="header">
 	<h1 title="A minimalist remake of the game Snake in JavaScript"> Snake.js </h1>
-	<h4>Use WASD or Arrow keys to move. Try to get the highest score ! <br> Are the graphics abnormal? Hit Refresh!</h4>
+	<h4>Use the arrow keys to move. Try to get the highest score ! <br> Are the graphics abnormal? Hit Refresh!</h4>
 </div>	
 
-<canvas class="gameCanvas" id="gameCanvas"></canvas>
+<div class='canvas-container'>
+	<canvas class="gameCanvas" id="gameCanvas"></canvas>
+</div>
 
 <div class="scoreArea">
-	<h2>Score</h2>
-	<h2 id="score"></h2>
+	<h2>Score: <span id='score'></span></h2>
 </div>
 
 <div class="gameButtons">

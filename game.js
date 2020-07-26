@@ -100,24 +100,12 @@ let drawSnake = () => {
 }
 
 //Event handler for user input. Input changes movement direction of snakes. Uses both arrow keys and WASD
-window.addEventListener('keydown', event => {
-
-  if (event.code === 'KeyA' || event.code === 'ArrowLeft') {
-    direction = 'left';
-  }
-
-  else if (event.code === 'KeyD' || event.code === 'ArrowRight') {
-    direction = 'right';
-  }
-
-  else if(event.code === 'KeyW' || event.code === 'ArrowUp') {
-    direction = 'up';
-  }
-
-  else if(event.code === 'KeyS' || event.code === 'ArrowDown') {
-    direction = 'down';
-  }
-})
+window.addEventListener('keydown', e => {
+  e.code == 'ArrowLeft' ? direction = 'left' : direction = direction;
+  e.code == 'ArrowRight' ? direction = 'right' : direction = direction;
+  e.code == 'ArrowUp' ? direction = 'up' : direction = direction;
+  e.code == 'ArrowDown' ? direction = 'down' : direction = direction;
+});
 
 let main = () => {
   /*This is the game's main function. Here it takes care of snake movement by constantly changing values
@@ -268,7 +256,3 @@ to take away the 3 starting blocks that make up the snake from the score, so tha
 score of 3 and instead 0.*/
 let score = document.getElementById('score');
 score.innerHTML = snake.length - 3;
-
-/* Test Edit */
-
-//Test Edit 2
